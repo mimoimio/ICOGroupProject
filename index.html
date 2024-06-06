@@ -9,22 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="converter-container">
-        <input type="number" id="numberInput" class="texts" placeholder="Enter a number">
-        <button id="convertBtn" class="texts">Convert to Binary</button>
-        <table class="binary-table">
-            <thead>
-                <tr>
-                    <th>Steps</th>
-                    <th>Operation</th>
-                    <th>Remainder</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="result"></tbody>
-        </table>
-        <p id="finalResult" class="finalResult"></p>
+    <div class="bodyEncap">
+        <div class="navbar">
+            <ul id="numberSystems">
+                <li id="Binary">Binary</li>
+                <li id="Octal">Octal</li>
+                <li id="Decimal">Decimal</li>
+                <li id="Hexadecimal">Hexadecimal</li>
+                <!-- <li id="Binary">Others</li> -->
+            </ul>
+        </div>
+        <div class="converter-container">
+            <input type="number" id="numberInput" class="texts" placeholder="Enter a number">
+            <button id="convertBtn" class="texts">Convert</button>
+            <p>Base:</p><p id="base">Binary</p>
+            <p id="finalResult" class="finalResult"></p>
+            <table class="binary-table">
+                <thead>
+                    <tr>
+                        <th>Steps</th>
+                        <th>Operation</th>
+                        <th>Remainder</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="result"></tbody>
+            </table>
+        </div>
+        <script src="script.js"></script>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
