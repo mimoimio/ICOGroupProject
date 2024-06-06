@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Binary Converter</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="converter-container">
-        <input type="number" id="numberInput" placeholder="Enter a number">
-        <button id="convertBtn">Convert to Binary</button>
-        <table id="result" class="binary-table">
+        <input type="number" id="numberInput" class="texts" placeholder="Enter a number">
+        <button id="convertBtn" class="texts">Convert to Binary</button>
+        <table class="binary-table">
             <thead>
                 <tr>
                     <th>Steps</th>
                     <th>Operation</th>
                     <th>Remainder</th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody id="result"></tbody>
         </table>
+        <p id="finalResult" class="finalResult"></p>
     </div>
     <script src="script.js"></script>
 </body>
