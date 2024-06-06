@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.converter-container {
+    text-align: center;
+}
+
+.converter-container input {
+    padding: 8px;
+    margin: 5px;
+}
+
+.converter-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.converter-container button:hover {
+    background-color: #e0e0e0;
+}
+
+.binary-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    margin-top: 20px;
+}
+
+.binary-table th, .binary-table td {
+    border: none;
+    padding: 8px;
+    text-align: center;
+}
+
+.binary-table th {
+    background-color: #f0f0f0;
+}
+
+.binary-table tbody tr {
+    background-color: #f0f0f0;
+    transition: 0.3s ease-in-out;
+}
+.binary-table tbody tr:hover {
+    background-color: #fff;
+    transform: scale(1.1);
+}
+
+.binary-table tbody tr:last-child td {
+    border-bottom: none;
+}
