@@ -24,6 +24,7 @@ body {
     justify-content: left;
 }
 
+
 .navbar{
     display: flex;
     flex-direction: column;

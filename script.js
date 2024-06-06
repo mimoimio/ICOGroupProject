@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = document.getElementById('finalResult');
     const baseStatement = document.getElementById('base');
 
+    
     var divisor = 2;
     var base="Binary";
     const ul = document.getElementById('numberSystems')
