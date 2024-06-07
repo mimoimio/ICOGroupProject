@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const binaryResult = binarySteps.reverse().map(step => step.remainder).join('');
             const binaryRows = binarySteps.reverse().map((step, index) => {
                 return `<tr>
-                            <td>${index+1}</td>
-                            <td>${step.quotient} ÷ ${divisor} = ${Math.floor(step.quotient / divisor)}</td>
-                            <td>${step.remainder}</td>
-                            <td><box-icon name='up-arrow-alt'></box-icon></td>
+                            <td class="steps">${index+1}</td>
+                            <td class="operation">${step.quotient} ÷ ${divisor} = ${Math.floor(step.quotient / divisor)}</td>
+                            <td class="remainder">${step.remainder}</td>
+                            <td class="arrow"><box-icon name='up-arrow-alt'></box-icon></td>
                         </tr>`;
             });
             resultTable.innerHTML = binaryRows.join('');

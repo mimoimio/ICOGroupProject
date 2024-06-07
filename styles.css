@@ -29,21 +29,21 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    
+    padding: 0px;
 }
 
 .navbar ul{
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
-    padding-inline-start: 0;
+    padding: 0px;
 }
 
 .navbar li{
     background: #f0f0a0;
-    width: 150px;
-    padding: 30px;
-    margin: 5px;
+    width:min-content;
+    padding: 3px;
+    margin: 2px;
     text-align: center;
     list-style-type: none;
     user-select: none;
@@ -56,6 +56,10 @@ body {
     color: #800;
 }
 
+.base-container{
+    background: #f99;
+    padding: 4px;
+}
 
 .converter-container {
     text-align: center;
@@ -91,6 +95,7 @@ body {
     padding: 8px;
     text-align: center;
 }
+
 
 .binary-table th {
     background-color: #f0f0f0;
