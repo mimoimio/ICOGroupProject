@@ -2,75 +2,126 @@ document.addEventListener('DOMContentLoaded', () => {
     const numberInput = document.getElementById('numberInput');
     const convertBtn = document.getElementById('convertBtn');
     const resultTable = document.getElementById('result');
+    const fractionalResultTable = document.getElementById('fractionalResult');
     const result = document.getElementById('finalResult');
     const baseStatement = document.getElementById('base');
-
     
-    var divisor = 2;
-    var base="Binary";
-    const ul = document.getElementById('numberSystems')
-    for(const child of ul.children){
-        child.addEventListener('click',()=>{
-            switch(child.id){
+    let divisor = 2;
+    let base = "Binary";
+    const ul = document.getElementById('numberSystems');
+    
+    for (const child of ul.children) {
+        child.addEventListener('click', () => {
+            switch (child.id) {
                 case "Binary":
                     divisor = 2;
                     break;
                 case "Octal":
-                    divisor = 8
+                    divisor = 8;
                     break;
                 case "Decimal":
-                    divisor = 10
+                    divisor = 10;
                     break;
                 case "Hexadecimal":
-                    divisor = 16
+                    divisor = 16;
                     break;
                 default:
             }
-            result.innerHTML=divisor;
+            result.innerHTML = divisor;
             base = child.id;
             baseStatement.innerHTML = base;
             calculate();
-        })
+        });
     }
 
-    
-
     convertBtn.addEventListener('click', calculate);
-    function calculate(){
-        
-        const number = parseInt(numberInput.value);
+
+    function calculate() {
+        const number = parseFloat(numberInput.value);
         if (!isNaN(number)) {
-            const binarySteps = [];
-            let quotient = number;
+            const integerPart = Math.floor(number);
+            const fractionalPart = number - integerPart;
+            const integerResult = convertIntegerPart(integerPart);
+            const fractionalResult = convertFractionalPart(fractionalPart);
+            const finalResult = fractionalResult 
+                ? `${integerResult}.${fractionalResult}` 
+                : integerResult;
 
-            while (quotient > 0) {
-                var remainder = quotient % divisor;
-                if (base == "Hexadecimal"){
-                    if (remainder==10) {remainder="A"}
-                    else if (remainder==11) {remainder="B"}
-                    else if (remainder==12) {remainder="C"}
-                    else if (remainder==13) {remainder="D"}
-                    else if (remainder==14) {remainder="E"}
-                    else if (remainder==15) {remainder="F"}
-                }
-                binarySteps.push({ quotient, remainder });
-                quotient = Math.floor(quotient / divisor);
-            }
-
-            const binaryResult = binarySteps.reverse().map(step => step.remainder).join('');
-            const binaryRows = binarySteps.reverse().map((step, index) => {
-                return `<tr>
-                            <td class="steps">${index+1}</td>
-                            <td class="operation">${step.quotient} ÷ ${divisor} = ${Math.floor(step.quotient / divisor)}</td>
-                            <td class="remainder">${step.remainder}</td>
-                            <td class="arrow"><box-icon name='up-arrow-alt'></box-icon></td>
-                        </tr>`;
-            });
-            resultTable.innerHTML = binaryRows.join('');
             result.style.visibility = 'visible';
-            result.innerHTML = base+" number:" + binaryResult;
+            result.innerHTML = `${base} number: ${finalResult}`;
         } else {
             resultTable.innerHTML = '<tr><td colspan="3">Please enter a valid number.</td></tr>';
         }
     }
+
+    function convertIntegerPart(number) {
+        const steps = [];
+        let quotient = number;
+
+        while (quotient > 0) {
+            let remainder = quotient % divisor;
+            if (base === "Hexadecimal") {
+                remainder = remainder.toString(16).toUpperCase();
+            }
+            steps.push(remainder);
+            quotient = Math.floor(quotient / divisor);
+        }
+
+        const binaryRows = steps.reverse().map((remainder, index) => {
+            return `<tr>
+                        <td class="steps">${index + 1}</td>
+                        <td class="operation">${steps[index]} ÷ ${divisor} = ${Math.floor(steps[index] / divisor)}</td>
+                        <td class="remainder">${remainder}</td>
+                        <td class="arrow"><box-icon name='up-arrow-alt'></box-icon></td>
+                    </tr>`;
+        });
+
+        resultTable.innerHTML = binaryRows.join('');
+        return steps.reverse().join('');
+    }function convertFractionalPart(number) {
+        if (number === 0) return '';
+    
+        const steps = [];
+        const seenRemainders = {};
+        let repeatingStartIndex = -1;
+        let fraction = Math.round(number * 1e8) / 1e8; // Limit precision to 8 digits and round to avoid tiny floating-point errors
+        let index = 0;
+    
+        while (fraction !== 0 && index < 50) { // limit iterations to avoid infinite loop
+            if (seenRemainders[fraction] !== undefined) {
+                repeatingStartIndex = seenRemainders[fraction];
+                break;
+            }
+    
+            seenRemainders[fraction] = index;
+            fraction *= divisor;
+            let integerPart = Math.floor(fraction);
+            fraction -= integerPart;
+            fraction = Math.round(fraction * 1e8) / 1e8; // Limit precision to 8 digits and round the result after the subtraction
+            steps.push({ integerPart, fraction });
+    
+            index++;
+        }
+    
+        const fractionalRows = steps.map((step, index) => {
+            return `<tr>
+                        <td class="steps">${index + 1}</td>
+                        <td class="operation">${step.integerPart} × ${divisor} + ${step.fraction} = ${step.integerPart + step.fraction}</td>
+                        <td class="integer-part">${step.integerPart}</td>
+                        <td class="fractional-part">${step.fraction}</td>
+                    </tr>`;
+        });
+    
+        fractionalResultTable.innerHTML = fractionalRows.join('');
+    
+        if (repeatingStartIndex !== -1) {
+            const nonRepeatingPart = steps.slice(0, repeatingStartIndex).map(step => step.integerPart).join('');
+            const repeatingPart = steps.slice(repeatingStartIndex).map(step => step.integerPart).join('');
+            return `${nonRepeatingPart}(${repeatingPart})...`;
+        }
+    
+        return steps.map(step => step.integerPart).join('');
+    }
+    
+    
 });

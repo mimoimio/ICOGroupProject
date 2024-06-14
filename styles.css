@@ -83,29 +83,28 @@ body {
     background-color: #e0e0e0;
 }
 
-.binary-table {
+.binary-table, .fractional-table {
     width: 100%;
     border-collapse: collapse;
     border: none;
     margin-top: 20px;
 }
 
-.binary-table th, .binary-table td {
+.binary-table th, .binary-table td, .fractional-table th, .fractional-table td {
     border: none;
     padding: 8px;
     text-align: center;
 }
 
-
-.binary-table th {
+.binary-table th, .fractional-table th {
     background-color: #f0f0f0;
 }
 
-.binary-table tbody tr {
+.binary-table tbody tr, .fractional-table tbody tr {
     background-color: #f0f0f0;
     transition: 0.3s ease-in-out;
 }
-.binary-table tbody tr:hover {
+.binary-table tbody tr:hover, .fractional-table tbody tr:hover {
     background-color: #fff;
     margin: 3;
     transform: scale(1.05);
