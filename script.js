@@ -80,47 +80,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return binaryResult;
     }
     function convertFractionalPart(number) {
-        const steps = [];
-        const seenRemainders = {};
-        let repeatingStartIndex = -1;
-        let fraction = Math.round(number * 1e8) / 1e8; // Limit precision to 8 digits and round to avoid tiny floating-point errors
-        let index = 0;
-    
-        while (fraction !== 0 && index < 50) { // limit iterations to avoid infinite loop
-            if (seenRemainders[fraction] !== undefined) {
-                repeatingStartIndex = seenRemainders[fraction];
-                break;
-            }
-    
-            seenRemainders[fraction] = index;
-            fraction *= divisor;
-            let integerPart = Math.floor(fraction);
-            fraction -= integerPart;
-            fraction = Math.round(fraction * 1e8) / 1e8; // Limit precision to 8 digits and round the result after the subtraction
-            let result = fraction * divisor; // Calculate the result for the operation
-            steps.push({ integerPart, fraction, result });
-    
-            index++;
+    fractionalResultTable.innerHTML = ''; // Clear previous content
+
+    if (number === 0) return '';
+
+    const steps = [];
+    const seenRemainders = {};
+    let repeatingStartIndex = -1;
+    let fraction = Math.round(number * 1e8) / 1e8; // Limit precision to 8 digits and round to avoid tiny floating-point errors
+    let index = 0;
+    while (fraction !== 0 && index < 50) { // Limit iterations to avoid infinite loop
+        if (seenRemainders[fraction] !== undefined) {
+            repeatingStartIndex = seenRemainders[fraction];
+            break;
         }
     
-        const fractionalRows = steps.map((step, index) => {
-            return `<tr>
-                        <td class="steps">${index + 1}</td>
-                        <td class="operation">${step.fraction} × ${divisor} = ${step.result}</td>
-                        <td class="integer-part">${Math.floor(step.result)}</td>
-                        <td class="fractional-part">${step.fraction*divisor}</td>
-                    </tr>`;
-        });
+        seenRemainders[fraction] = index;
     
-        fractionalResultTable.innerHTML = fractionalRows.join('');
+        let originalFraction = fraction;
+        let result = originalFraction * divisor;
+        let integerPart = Math.floor(result);
+        fraction = result - integerPart;
+        fraction = Math.round(fraction * 1e8) / 1e8; // Limit precision to 8 digits and round the result after the subtraction
     
-        if (repeatingStartIndex !== -1) {
-            const nonRepeatingPart = steps.slice(0, repeatingStartIndex).map(step => step.integerPart).join('');
-            const repeatingPart = steps.slice(repeatingStartIndex).map(step => step.integerPart).join('');
-            return `${nonRepeatingPart}${repeatingPart}... (repeated on ${repeatingPart})`;
-        }
+        steps.push({ originalFraction, divisor, result, integerPart, fraction });
     
-        return steps.map(step => step.integerPart).join('');
+        index++;
     }
+
+    const fractionalRows = steps.map((step, index) => {
+        return `<tr>
+                    <td class="steps">${index + 1}</td>
+                    <td class="operation">${step.originalFraction} × ${step.divisor} = ${step.result}</td>
+                    <td class="integer-part">${step.integerPart}</td>
+                    <td class="fractional-part">${step.fraction}</td>
+                </tr>`;
+    });
+
+    fractionalResultTable.innerHTML = fractionalRows.join('');
+
+    if (repeatingStartIndex !== -1) {
+        const nonRepeatingPart = steps.slice(0, repeatingStartIndex).map(step => step.integerPart).join('');
+        const repeatingPart = steps.slice(repeatingStartIndex).map(step => step.integerPart).join('');
+        return `${nonRepeatingPart}${repeatingPart}... (repeated on ${repeatingPart})`;
+    }
+
+    return steps.map(step => step.integerPart).join('');
+}
     
 });
