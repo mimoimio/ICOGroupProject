@@ -118,3 +118,10 @@ body {
     font-size: large;
     visibility: hidden;
 }
+caption {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: left; /* Adjust alignment as needed */
+    padding: 8px; /* Optional: add padding for spacing */
+    /* Add any other styles you want for the caption */
+}
