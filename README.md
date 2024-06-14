@@ -27,5 +27,4 @@ This project is a web-based base converter that allows users to convert decimal 
 5. View the converted number and the step-by-step conversion process.
 
 Or, The working website can be accessed at:
-https://mimoimio.github.io/ICOGroupProject/ 
-(Base Converter) 
+https://mimoimio.github.io/ICOGroupProject/src/index.html
