@@ -53,32 +53,33 @@ document.addEventListener('DOMContentLoaded', () => {
             resultTable.innerHTML = '<tr><td colspan="3">Please enter a valid number.</td></tr>';
         }
     }
-
     function convertIntegerPart(number) {
         const steps = [];
         let quotient = number;
-
+    
         while (quotient > 0) {
             let remainder = quotient % divisor;
             if (base === "Hexadecimal") {
                 remainder = remainder.toString(16).toUpperCase();
             }
-            steps.push(remainder);
+            steps.push({ quotient, remainder });
             quotient = Math.floor(quotient / divisor);
         }
-
-        const binaryRows = steps.reverse().map((remainder, index) => {
+    
+        const binaryResult = steps.reverse().map(step => step.remainder).join('');
+        const binaryRows = steps.reverse().map((step, index) => {
             return `<tr>
                         <td class="steps">${index + 1}</td>
-                        <td class="operation">${steps[index]} ÷ ${divisor} = ${Math.floor(steps[index] / divisor)}</td>
-                        <td class="remainder">${remainder}</td>
+                        <td class="operation">${step.quotient} ÷ ${divisor} = ${Math.floor(step.quotient / divisor)}</td>
+                        <td class="remainder">${step.remainder}</td>
                         <td class="arrow"><box-icon name='up-arrow-alt'></box-icon></td>
                     </tr>`;
         });
-
+    
         resultTable.innerHTML = binaryRows.join('');
-        return steps.reverse().join('');
-    }function convertFractionalPart(number) {
+        return binaryResult;
+    }
+    function convertFractionalPart(number) {
         if (number === 0) return '';
     
         const steps = [];
