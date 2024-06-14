@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return `<tr>
                         <td class="steps">${index + 1}</td>
                         <td class="operation">${step.fraction} × ${divisor} = ${step.result}</td>
-                        <td class="integer-part">${step.result}</td>
-                        <td class="fractional-part">${step.fraction}</td>
+                        <td class="integer-part">${Math.floor(step.result)}</td>
+                        <td class="fractional-part">${step.fraction*divisor}</td>
                     </tr>`;
         });
     
