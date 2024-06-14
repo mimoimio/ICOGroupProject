@@ -1,4 +1,3 @@
-<!-- 
 Introduction to Computer Organization 
 SECTION 05 
 SEMESTER 2 2023/2024
@@ -7,7 +6,6 @@ Made by Group K:
 - AIMAN BIN AHMAD ZAINULKAMAL (2311929)
 - ESMA DENNIS BIN MOHD ADAM (2316821)
 - NUR HABRIYAH BINTI MOHD IBRAHIM (2318544) 
--->
 
 --Number Base Calculator--
 This project is a web-based base converter that allows users to convert decimal numbers to binary, octal, decimal, or hexadecimal numbers. The conversion process includes both integer and fractional parts, providing detailed steps for each conversion.
