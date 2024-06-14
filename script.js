@@ -98,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let integerPart = Math.floor(fraction);
             fraction -= integerPart;
             fraction = Math.round(fraction * 1e8) / 1e8; // Limit precision to 8 digits and round the result after the subtraction
-            steps.push({ integerPart, fraction });
+            let result = fraction * divisor; // Calculate the result for the operation
+            steps.push({ integerPart, fraction, result });
     
             index++;
         }
@@ -106,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const fractionalRows = steps.map((step, index) => {
             return `<tr>
                         <td class="steps">${index + 1}</td>
-                        <td class="operation">${step.integerPart} × ${divisor} + ${step.fraction} = ${step.integerPart + step.fraction}</td>
-                        <td class="integer-part">${step.integerPart}</td>
+                        <td class="operation">${step.fraction} × ${divisor} = ${step.result}</td>
+                        <td class="integer-part">${step.result}</td>
                         <td class="fractional-part">${step.fraction}</td>
                     </tr>`;
         });
@@ -117,11 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (repeatingStartIndex !== -1) {
             const nonRepeatingPart = steps.slice(0, repeatingStartIndex).map(step => step.integerPart).join('');
             const repeatingPart = steps.slice(repeatingStartIndex).map(step => step.integerPart).join('');
-            return `${nonRepeatingPart}(${repeatingPart})...`;
+            return `${nonRepeatingPart}${repeatingPart}... (repeated on ${repeatingPart})`;
         }
     
         return steps.map(step => step.integerPart).join('');
     }
-    
     
 });
