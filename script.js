@@ -80,8 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return binaryResult;
     }
     function convertFractionalPart(number) {
-        if (number === 0) return '';
-    
         const steps = [];
         const seenRemainders = {};
         let repeatingStartIndex = -1;
