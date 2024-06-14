@@ -101,6 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let result = originalFraction * divisor;
         let integerPart = Math.floor(result);
         fraction = result - integerPart;
+        if (base === "Hexadecimal") {
+            integerPart = integerPart.toString(16).toUpperCase();
+        }
         fraction = Math.round(fraction * 1e8) / 1e8; // Limit precision to 8 digits and round the result after the subtraction
     
         steps.push({ originalFraction, divisor, result, integerPart, fraction });

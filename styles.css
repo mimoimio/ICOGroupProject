@@ -24,7 +24,6 @@ body {
     justify-content: left;
 }
 
-
 .navbar{
     display: flex;
     flex-direction: column;
@@ -40,7 +39,7 @@ body {
 }
 
 .navbar li{
-    background: #f0f0a0;
+    background: #a0c0f0;
     width:min-content;
     padding: 3px;
     margin: 2px;
@@ -53,11 +52,11 @@ body {
 .navbar li:hover{
     transform: scale(1.1);
     cursor: pointer;
-    color: #800;
+    color: #005;
 }
 
 .base-container{
-    background: #f99;
+    background: #99bbf9;
     padding: 4px;
 }
 
@@ -97,11 +96,11 @@ body {
 }
 
 .binary-table th, .fractional-table th {
-    background-color: #f0f0f0;
+    background-color: #c0d0f0;
 }
 
 .binary-table tbody tr, .fractional-table tbody tr {
-    background-color: #f0f0f0;
+    background-color: #d0e0f0;
     transition: 0.3s ease-in-out;
 }
 .binary-table tbody tr:hover, .fractional-table tbody tr:hover {
@@ -118,6 +117,7 @@ body {
     font-size: large;
     visibility: hidden;
 }
+
 caption {
     font-weight: bold;
     font-size: 1.2em;
